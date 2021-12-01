@@ -1,14 +1,4 @@
-## Laravel Breeze: Tailwind Pages Skeleton
-
-Laravel boilerplate repository to create simple demo-projects. It allows to quickly add new routes/pages, and has examples of a table page, and a form page.
-
-It uses the Starter Kit [Laravel Breeze](https://github.com/laravel/breeze) based on Tailwind framework.
-
-![Laravel Breeze Table page](https://laraveldaily.com/wp-content/uploads/2021/09/Screenshot-2021-09-19-at-09.51.38.png)
-
-![Laravel Breeze Form page](https://laraveldaily.com/wp-content/uploads/2021/09/Screenshot-2021-09-19-at-09.51.50.png)
-
------
+## Laravel Refactoring Course: Store/Update to Form Request
 
 ### How to use
 
