@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddressRequest;
 use App\Models\Address;
 use App\Models\Country;
 use Illuminate\Http\Request;
@@ -38,31 +39,12 @@ class AddressController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AddressRequest $request)
     {
-        $request->validate([
-            'street'      => ['required', 'string'],
-            'number'      => ['required', 'string'],
-            'city'        => ['required', 'string'],
-            'state'       => ['required', 'string'],
-            'postal_code' => ['required', 'string'],
-            'country'     => ['required', 'string'],
-            'phone'       => ['required', 'string'],
-            'is_billing'  => ['boolean', 'nullable'],
-        ]);
-
-        Address::create([
-            'user_id'      => auth()->id(),
-            'token'        => Str::random(32),
-            'street_name'  => $request->street,
-            'house_number' => $request->number,
-            'postal_code'  => $request->postal_code,
-            'state'        => $request->state,
-            'city'         => $request->city,
-            'country_id'   => $request->country,
-            'phone'        => $request->phone,
-            'is_billing'   => $request->is_billing,
-        ]);
+        Address::create($request->validated() + [
+                'user_id'      => auth()->id(),
+                'token'        => Str::random(32),
+            ]);
 
         return redirect()->route('addresses.index');
     }
@@ -84,30 +66,9 @@ class AddressController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Address $address)
+    public function update(AddressRequest $request, Address $address)
     {
-        $request->validate([
-            'street'      => ['required', 'string'],
-            'number'      => ['required', 'string'],
-            'city'        => ['required', 'string'],
-            'state'       => ['required', 'string'],
-            'postal_code' => ['required', 'string'],
-            'country'     => ['required', 'string'],
-            'phone'       => ['required', 'string'],
-            'is_billing'  => ['boolean', 'nullable'],
-        ]);
-
-        $address->user_id      = auth()->id();
-        $address->street_name  = $request->street;
-        $address->house_number = $request->number;
-        $address->postal_code  = $request->postal_code;
-        $address->state        = $request->state;
-        $address->city         = $request->city;
-        $address->country_id   = $request->country;
-        $address->phone        = $request->phone;
-        $address->is_billing   = $request->is_billing;
-
-        $address->save();
+        $address->update($request->validated());
 
         return redirect()->route('addresses.index');
     }
